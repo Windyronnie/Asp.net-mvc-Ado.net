@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+@model System.Collections.Generic.IEnumerable<Model.Stuinfo>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script>
+        function Del(e) {
+            var id = $(e).attr("id");
+            $.post("Home/Delete", { id: id }, function (data) {
+                if (data == "true") {
+                    alert("删除成功");
+                    location.href = "/Home/Index";
+                    return;
+                }
+                else {
+                    alert("删除失败");
+                    location.href = "/Home/Index";
+                    return;
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <table style="width:500px;height:800px;border:1px solid red;">
+        @foreach (var item in Model)
+        {
+            <tr style="border:1px solid red;">
+                <td>@item.S_Id</td>
+                <td>@item.S_Name</td>
+                <td>@item.S_No</td>
+                <td>@BLL.StuinfoBLL.GetClass(item.S_C_Id)</td>
+                <td>@(item.S_state?"已点名":"未点名")</td>
+                <td>
+                    @Html.ActionLink("添加", "Insert")
+                    @*<a href="#" onclick="Insert(this)">添加</a>*@
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Update", new { id=item.S_Id })
+                </td>
+                <td>
+                    <a href="#" id='@item.S_Id' onclick="Del(this)">删除</a>
+                    @*@Html.ActionLink("删除", "Delete", new { id=item.S_Id })*@
+                </td>
+            </tr>
+        }
+    </table>
+   
+</body>
+</html>

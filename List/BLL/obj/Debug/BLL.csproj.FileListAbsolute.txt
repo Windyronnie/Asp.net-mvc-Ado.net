@@ -1,0 +1,11 @@
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\BLL.dll
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\BLL.pdb
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\DAL.dll
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\DBUtity.dll
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\DAL.pdb
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\DBUtity.pdb
+G:\ASP.MVC\DatatableToListT\List\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+G:\ASP.MVC\DatatableToListT\List\BLL\obj\Debug\BLL.dll
+G:\ASP.MVC\DatatableToListT\List\BLL\obj\Debug\BLL.pdb
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\Model.dll
+G:\ASP.MVC\DatatableToListT\List\BLL\bin\Debug\Model.pdb

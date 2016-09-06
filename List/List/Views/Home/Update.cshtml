@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+@model Model.Stuinfo
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Update</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script>
+        $(function () {
+            $("#sub").click(function () {
+                var name = $("#S_Name").val();
+                var No = $("#S_No").val();
+                var select = $("#Select").find("option:selected").val();
+                var radio = sex = $("input[name=state]:checked").val();
+                var Id = $("#S_Id").val();
+                $.post("/Home/Update", { id: Id, no: No, name: name, select: select, radio: radio }, function (data) {
+                    if (data == "true") {
+                        alert("修改成功");
+                        location.href="/Home/Index"
+                    }
+                    else {
+                        alert("修改失败");
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <div>
+        @Html.HiddenFor(c => c.S_Id)
+        <p>姓名:@Html.TextBoxFor(c=>c.S_Name)</p>
+        <p>学号:@Html.TextBoxFor(c=>c.S_No)</p>
+        <p>班级:@Html.DropDownList("Select")</p>
+        <p>状态:@Html.RadioButton("state", "1", Model.S_state == true ? true : false)已点名
+            @Html.RadioButton("state", "0", Model.S_state == false ? true : false)未点名
+        </p>
+        <p><input type="submit" id="sub" /></p>
+    </div>
+</body>
+</html>
