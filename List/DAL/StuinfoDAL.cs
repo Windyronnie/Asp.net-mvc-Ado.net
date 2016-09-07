@@ -57,5 +57,11 @@ namespace DAL
             return DBUtity.SqlHelper.ExeNonQuery(sql, CommandType.Text, null);
         }
 
+        public static bool DelAll(string val)
+        {
+            string sql = string.Format("delete from stuinfo where s_id in ({0})", val);
+            return DBUtity.SqlHelper.ExeNonQuery(sql, CommandType.Text, null);
+        }
+
     }
 }

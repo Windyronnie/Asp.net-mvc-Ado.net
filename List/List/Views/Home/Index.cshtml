@@ -9,6 +9,26 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <style>
+        table {
+            width: 500px;
+            height: 800px;
+            border: 1px solid red;
+            border-spacing: 0px;
+        }
+            table tr {
+                border: 1px solid red;
+                border-spacing: 0px;
+                text-align:center;
+            }
+                table tr td {
+                    border:1px solid #e5e5e5;
+                    text-align:center;
+                }
+        .hover:hover {
+            background-color:gold;
+        }
+    </style>
     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
     <script>
         function Del(e) {
@@ -26,13 +46,69 @@
                 }
             })
         }
+
+        function Click() {
+            var tr = event.srcElement.parentElement;
+            if (tr.cells[0].children[0].checked == true) {
+                tr.cells[0].children[0].checked = false;
+            }
+            else {
+                tr.cells[0].children[0].checked = true;
+            }   
+        }
+
+        function CheckAll() {
+            var AllCheckBox = document.getElementsByClassName("Check");
+            for (var i = 0; i < AllCheckBox.length; i++) {
+                if (document.getElementById("CheckAll").checked) {
+                    AllCheckBox[i].checked = true;
+                }
+                else {
+                    AllCheckBox[i].checked = false;
+                }
+            }
+        }
+
+        $(function () {
+            $("#btn_Del").click(function () {
+                var AllCheckBox = document.getElementsByClassName("Check");
+                var check_val = "";
+                for (k in AllCheckBox) {
+                    if (AllCheckBox[k].checked){
+                        check_val += AllCheckBox[k].value + ",";
+                    }
+                }
+                $.post("/Home/DeleteAll", { val: check_val }, function (data) {
+                    if (data == "true") {
+                        alert("删除成功");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("删除失败");
+                    }
+                })
+            })
+        })
     </script>
+    
 </head>
 <body>
-    <table style="width:500px;height:800px;border:1px solid red;">
+    <table>
+        <tr>
+            <td><input type="checkbox" id="CheckAll" onclick="CheckAll()" /></td>
+            <td>编号</td>
+            <td>学号</td>
+            <td>班级</td>
+            <td>姓名</td>
+            <td>状态</td>
+            <td>添加</td>
+            <td>修改</td>
+            <td>删除</td>
+        </tr>
         @foreach (var item in Model)
         {
-            <tr style="border:1px solid red;">
+            <tr class="hover" onclick="Click()">
+                <td><input type="checkbox" class="Check" value="@item.S_Id" /></td>
                 <td>@item.S_Id</td>
                 <td>@item.S_Name</td>
                 <td>@item.S_No</td>
@@ -52,6 +128,7 @@
             </tr>
         }
     </table>
+    <input type="button" value="删除" id="btn_Del" />
    
 </body>
 </html>

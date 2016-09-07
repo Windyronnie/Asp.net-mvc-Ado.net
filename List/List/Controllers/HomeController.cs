@@ -88,6 +88,21 @@ namespace List.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult DeleteAll(string val)
+        {
+            val = val.Substring(0, val.Length - 1);
+            bool flag = BLL.StuinfoBLL.DelAll(val);
+            if (flag)
+            {
+                return Content("true");
+            }
+            else
+            {
+                return Content("false");
+            }
+        }
+
         public ActionResult Update(int id)
         {
             DataTable dt_stu = BLL.StuinfoBLL.FindStuInfo(id);

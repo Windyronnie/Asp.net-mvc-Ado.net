@@ -51,5 +51,10 @@ namespace BLL
             return DAL.StuinfoDAL.Update(ss);
         }
 
+        public static bool DelAll(string val)
+        {
+            return DAL.StuinfoDAL.DelAll(val);
+        }
+
     }
 }
