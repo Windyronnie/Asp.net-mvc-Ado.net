@@ -63,5 +63,11 @@ namespace DAL
             return DBUtity.SqlHelper.ExeNonQuery(sql, CommandType.Text, null);
         }
 
+        public static DataTable GetAll()
+        {
+            string sql = string.Format("select s_id,s_name,s_no,c_name,s_state from stuinfo s,classInfo c where s.s_c_id=c.c_id");
+            return DBUtity.SqlHelper.GetTable(sql);
+        }
+
     }
 }

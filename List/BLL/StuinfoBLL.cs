@@ -56,5 +56,10 @@ namespace BLL
             return DAL.StuinfoDAL.DelAll(val);
         }
 
+        public static DataTable GetAll()
+        {
+            return DAL.StuinfoDAL.GetAll();
+        }
+
     }
 }
