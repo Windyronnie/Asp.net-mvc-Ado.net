@@ -8,7 +8,7 @@ namespace Model
 {
     public class ClassInfo
     {
-        public int C_Id { get; set; }
-        public string C_Name { get; set; }
+        public int C_Id { get; set; } //班级编号
+        public string C_Name { get; set; } //班级名称
     }
 }

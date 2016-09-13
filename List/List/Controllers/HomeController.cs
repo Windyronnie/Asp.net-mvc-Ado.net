@@ -21,11 +21,29 @@ namespace List.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// 首页绑定
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
+            //查找数据 将DataTable转换成List<T>泛型集合
             List<Model.Stuinfo> stu = GetList<Model.Stuinfo>(BLL.StuinfoBLL.GetStu());
             IEnumerable<Model.Stuinfo> stus = stu.ToList();
             return View(stus);
+        }
+
+        /// <summary>
+        /// 查询数据
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult IndexLike()
+        {
+            object Find = Request["id"];//通过a标签进行url传值
+            //object Find = Request["txt_find"];//通过submit进行form表单传值 现将方式留下
+            List<Model.Stuinfo> stu = GetList<Model.Stuinfo>(BLL.StuinfoBLL.GetLike(Find.ToString()));
+            IEnumerable<Model.Stuinfo> stus = stu.ToList();
+            return View("Index",stus);//转到对应的view传一个强类型
         }
 
         public ActionResult Delete()
@@ -33,9 +51,15 @@ namespace List.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 删除的方法(单个删除)
+        /// </summary>
+        /// <param name="id">要删除的id</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int id)
         {
+            //删除返回bool
             bool flag = BLL.StuinfoBLL.Del(id);
             if (flag)
             {
@@ -47,10 +71,15 @@ namespace List.Controllers
             }
         }
 
+        /// <summary>
+        /// 添加显示绑定下拉框
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Insert()
         {
             DataTable dt = BLL.StuinfoBLL.GetClassInfo();
             List<SelectListItem> classinfo = new List<SelectListItem>();
+            //循环遍历绑定下拉框
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                     classinfo.Add(new SelectListItem
@@ -59,10 +88,19 @@ namespace List.Controllers
                         Text = dt.Rows[i][1].ToString()
                     });
             }
+            //ViewData传到前台
             ViewData["Select"] = new SelectList(classinfo, "Value", "Text");
             return View();
         }
 
+        /// <summary>
+        /// 添加的方法
+        /// </summary>
+        /// <param name="name">姓名</param>
+        /// <param name="no">学号</param>
+        /// <param name="select">班级/下拉框</param>
+        /// <param name="radio">状态/单选框</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Insert(string name, string no, string select, string radio)
         {
@@ -89,10 +127,17 @@ namespace List.Controllers
             }
         }
 
+        /// <summary>
+        /// 多表删除
+        /// </summary>
+        /// <param name="val">选中的id</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DeleteAll(string val)
         {
+            //去掉最后一个逗号
             val = val.Substring(0, val.Length - 1);
+            //删除多条 返回bool
             bool flag = BLL.StuinfoBLL.DelAll(val);
             if (flag)
             {
@@ -104,16 +149,29 @@ namespace List.Controllers
             }
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="id">修改绑定的id</param>
+        /// <returns></returns>
         public ActionResult Update(int id)
         {
+            //查找到一行
             DataTable dt_stu = BLL.StuinfoBLL.FindStuInfo(id);
             Stuinfo ss = new Stuinfo();
+            //编号
             ss.S_Id = Convert.ToInt32(dt_stu.Rows[0][0]);
+            //姓名
             ss.S_Name = dt_stu.Rows[0][3].ToString();
+            //学号
             ss.S_No = dt_stu.Rows[0][1].ToString();
+            //班级
             ss.S_C_Id = Convert.ToInt32(dt_stu.Rows[0][2]);
+            //状态
             ss.S_state = bool.Parse(dt_stu.Rows[0][4].ToString());
+            //查找到绑定下拉框的数据
             DataTable dt = BLL.StuinfoBLL.GetClassInfo();
+            //循环遍历绑定下拉框
             List<SelectListItem> classinfo = new List<SelectListItem>();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -123,18 +181,33 @@ namespace List.Controllers
                     Text = dt.Rows[i][1].ToString()
                 });
             }
+            //ViewData传到前台
             ViewData["Select"] = new SelectList(classinfo, "Value", "Text", ss.S_C_Id);
             return View(ss);
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="id">修改的id</param>
+        /// <param name="no">修改的学号</param>
+        /// <param name="name">修改的姓名</param>
+        /// <param name="select">修改的班级/下拉框</param>
+        /// <param name="radio">修改的状态/单选按钮</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Update(string id, string no, string name, string select, string radio)
         {
             Stuinfo ss = new Stuinfo();
+            //编号
             ss.S_Id = Convert.ToInt32(id);
+            //姓名
             ss.S_Name = name;
+            //学号
             ss.S_No = no;
+            //班级
             ss.S_C_Id = Convert.ToInt32(select);
+            //状态
             if (radio == "0")
             {
                 ss.S_state = false;
@@ -143,6 +216,7 @@ namespace List.Controllers
             {
                 ss.S_state = true;
             }
+            //查询结果返回bool
             bool flag = BLL.StuinfoBLL.Update(ss);
             if (flag)
             {
@@ -154,12 +228,16 @@ namespace List.Controllers
             }
         }
 
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Excel()
         {
             string filename = "学生数据";
             DataTable dt = BLL.StuinfoBLL.GetAll();
             HttpResponse resp = System.Web.HttpContext.Current.Response;
-            resp.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
+            resp.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");//格式GB2312格式
             resp.AppendHeader("Content-Disposition", "attachment;filename=" + filename+".xls");
             string colHeaders = "", ls_item = "";
             StringBuilder sb = new StringBuilder();
@@ -207,11 +285,16 @@ namespace List.Controllers
 
             }
             resp.End();
+            //返回字符保存格式
             return Content(sb.ToString(), "application/vnd.ms-exce", resp.ContentEncoding);
         }
 
-
-
+        /// <summary>
+        /// DataTable转换成List<T>泛型集合 注:T中的名称要与数据库中保持一致
+        /// </summary>
+        /// <typeparam name="T">类</typeparam>
+        /// <param name="table">DataTable</param>
+        /// <returns></returns>
         public List<T> GetList<T>(DataTable table)
         {
             List<T> list = new List<T>();
