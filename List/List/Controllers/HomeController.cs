@@ -29,6 +29,7 @@ namespace List.Controllers
         {
             //查找数据 将DataTable转换成List<T>泛型集合
             List<Model.Stuinfo> stu = GetList<Model.Stuinfo>(BLL.StuinfoBLL.GetStu());
+            //将List<T>转换成IEnumerable<T>同样也可以往前台传List<T>。
             IEnumerable<Model.Stuinfo> stus = stu.ToList();
             return View(stus);
         }

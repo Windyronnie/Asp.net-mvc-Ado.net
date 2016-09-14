@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using DAL;
+using DBUtity;
+using Model;
 
 namespace DAL
 {
