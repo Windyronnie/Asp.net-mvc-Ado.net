@@ -8,6 +8,7 @@ using System.Reflection;
 using BLL;
 using Model;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace List.Controllers
 {
@@ -32,6 +33,25 @@ namespace List.Controllers
             //将List<T>转换成IEnumerable<T>同样也可以往前台传List<T>。
             IEnumerable<Model.Stuinfo> stus = stu.ToList();
             return View(stus);
+        }
+
+        public JsonResult Bind() 
+        {
+            DataTable dt_data = BLL.StuinfoBLL.GetStu();
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            string _json = "[";
+            for (int i = 0; i < dt_data.Rows.Count; i++)
+            {
+                dic.Clear();
+                dic.Add("s_id", dt_data.Rows[i]["s_id"].ToString());
+                dic.Add("s_no", dt_data.Rows[i]["s_no"].ToString());
+                dic.Add("s_c_id", dt_data.Rows[i]["s_c_id"].ToString());
+                dic.Add("s_name", dt_data.Rows[i]["s_name"].ToString());
+                dic.Add("s_state", dt_data.Rows[i]["s_state"].ToString());
+                _json += JsonConvert.SerializeObject(dic) + ",";
+            }
+            _json = _json.Substring(0, _json.Length - 1) + "]";
+            return Json(_json, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

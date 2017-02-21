@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Insert</title>
+</head>
+<body>
+    <div>
+        <form action="/Home/Insert" method="post">
+            <p>姓名:@Html.TextBox("S_Name")</p>
+            <p>学号:@Html.TextBox("S_No")</p>
+            <p>班级:@Html.DropDownList("Select")</p>
+            <p>
+                状态:<input type="radio" checked="checked" name="state" value="0" />已点名
+                <input type="radio" name="state" value="1" />未点名
+            </p>
+            <p><input type="submit" id="sub" /></p>
+        </form>
+    </div>
+</body>
+</html>

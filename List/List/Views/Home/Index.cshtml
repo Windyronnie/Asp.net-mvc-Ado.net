@@ -105,6 +105,14 @@
                     }
                 })
             })
+            $.get("/Home/Bind", {}, function (data) {
+                var td = $.parseJSON(data);
+                console.log(td);
+                for (var i = 0; i < td.length; i++) {
+                    $table = "<tr><td>" + td[i].s_id + "</td><td>" + td[i].s_name + "</td><td>" + td[i].s_no + "</td><td>" + td[i].s_c_id + "</td><td>" + td[i].s_state + "</td></tr>";
+                    $("#tbl_Bind").append($table);
+                }
+            })
         })
 
         //url传值
@@ -156,6 +164,8 @@
     </form>
         <input type="button" value="删除" id="btn_Del" />
         <a href="/Home/Excel">导出Excel</a>
+
+    <table id="tbl_Bind"></table>
     
 </body>
 </html>
