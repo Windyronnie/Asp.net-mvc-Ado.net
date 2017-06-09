@@ -16,7 +16,7 @@ namespace DAL
         static string _strConn = "server=.;database=dianming;uid=sa;pwd=123456;";
         public static List<Stuinfo> GetStu()
         {
-            string sql = string.Format("select * from stuinfo");
+            string sql = string.Format("select * from stuinfo"); 
             List<Stuinfo> stu;
             using (SqlConnection con = new SqlConnection(_strConn))
             {

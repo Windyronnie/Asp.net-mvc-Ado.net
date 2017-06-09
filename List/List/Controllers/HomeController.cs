@@ -324,17 +324,17 @@ namespace List.Controllers
             string tempName = string.Empty;
             foreach (DataRow row in table.Rows)
             {
-                t = Activator.CreateInstance<T>();
-                propertypes = t.GetType().GetProperties();
-                foreach (PropertyInfo pro in propertypes)
+                t = Activator.CreateInstance<T>();  //创建指定泛型类型参数所指定的类型
+                propertypes = t.GetType().GetProperties();  //获取所有的字段名 
+                foreach (PropertyInfo pro in propertypes)  //循环遍历字段名
                 {
-                    tempName = pro.Name;
-                    if (table.Columns.Contains(tempName))
+                    tempName = pro.Name;  //获取字段名
+                    if (table.Columns.Contains(tempName))  //查询DataTable的列名是否包含字段名
                     {
-                        object value = row[tempName];
-                        if (!value.ToString().Equals(""))
+                        object value = row[tempName];  //一个一个赋值
+                        if (!value.ToString().Equals(""))  //非空验证
                         {
-                            pro.SetValue(t, value, null);
+                            pro.SetValue(t, value, null);  //将value的值赋给t
                         }
                     }
                 }
@@ -342,7 +342,5 @@ namespace List.Controllers
             }
             return list.Count == 0 ? null : list;
         }
-
-
     }
 }
