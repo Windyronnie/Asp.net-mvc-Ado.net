@@ -1,5 +1,0 @@
-G:\ASP.MVC\DatatableToListT\List\Model\bin\Debug\Model.dll
-G:\ASP.MVC\DatatableToListT\List\Model\bin\Debug\Model.pdb
-G:\ASP.MVC\DatatableToListT\List\Model\obj\Debug\Model.dll
-G:\ASP.MVC\DatatableToListT\List\Model\obj\Debug\Model.pdb
-G:\ASP.MVC\DatatableToListT\List\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache

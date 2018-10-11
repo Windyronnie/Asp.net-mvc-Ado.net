@@ -1,9 +1,0 @@
-G:\ASP.MVC\DatatableToListT\List\DAL\bin\Debug\DAL.dll
-G:\ASP.MVC\DatatableToListT\List\DAL\bin\Debug\DAL.pdb
-G:\ASP.MVC\DatatableToListT\List\DAL\bin\Debug\DBUtity.dll
-G:\ASP.MVC\DatatableToListT\List\DAL\bin\Debug\DBUtity.pdb
-G:\ASP.MVC\DatatableToListT\List\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
-G:\ASP.MVC\DatatableToListT\List\DAL\obj\Debug\DAL.dll
-G:\ASP.MVC\DatatableToListT\List\DAL\obj\Debug\DAL.pdb
-G:\ASP.MVC\DatatableToListT\List\DAL\bin\Debug\Model.dll
-G:\ASP.MVC\DatatableToListT\List\DAL\bin\Debug\Model.pdb

@@ -1,5 +1,0 @@
-G:\ASP.MVC\DatatableToListT\List\DBUtity\bin\Debug\DBUtity.dll
-G:\ASP.MVC\DatatableToListT\List\DBUtity\bin\Debug\DBUtity.pdb
-G:\ASP.MVC\DatatableToListT\List\DBUtity\obj\Debug\DBUtity.csprojResolveAssemblyReference.cache
-G:\ASP.MVC\DatatableToListT\List\DBUtity\obj\Debug\DBUtity.dll
-G:\ASP.MVC\DatatableToListT\List\DBUtity\obj\Debug\DBUtity.pdb
